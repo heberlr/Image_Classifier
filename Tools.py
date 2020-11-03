@@ -8,8 +8,8 @@ def ImageOpenCV(file,plot=True):
     blur = cv2.blur(img,(5,5))
     
     # Cutting image
-    #img = img[100:-70, 5:-5]
-    img = img[250:-150, 150:-150]
+    img = img[100:-70, 5:-5]
+    #img = img[250:-150, 150:-150]
     
     # Red filter
     channelred = img[:,:,0]
