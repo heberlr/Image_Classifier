@@ -110,10 +110,11 @@ def ImageOpenCV(file,plot=True):
         cv2.imshow("Plumes",img1)
         cv2.imshow("Escape cells",img2)
         cv2.imshow("Necrotic core",img3)
-        cv2.imwrite("Image.jpg", img)
-        cv2.imwrite("Plumes.jpg", img1)
-        cv2.imwrite("Scaping.jpg",img2)
-        cv2.imwrite("Necrotic.jpg", img3)
+        # Save image
+        # cv2.imwrite("Image.jpg", img)
+        # cv2.imwrite("Plumes.jpg", img1)
+        # cv2.imwrite("Scaping.jpg",img2)
+        # cv2.imwrite("Necrotic.jpg", img3)
         cv2.waitKey()
 
     return plumes, scape, necrotic
@@ -151,13 +152,13 @@ def Classify_all_simulations():
 
     for n in range(len(Plumes)):
         if (n < 9):
-            File = "output/Output_B"+Bias[0]
+            File = "snapshots/Output_B"+Bias[0]
             index1.append(int(n))
         if ( (n>=9) & (n<18) ):
-            File = "output/Output_B"+Bias[1]
+            File = "snapshots/Output_B"+Bias[1]
             index2.append(int(n))
         if (n>=18):
-            File = "output/Output_B"+Bias[2]
+            File = "snapshots/Output_B"+Bias[2]
             index3.append(int(n))
         if (n%9 < 3):
             File += "_F"+Fraction[0]
@@ -266,7 +267,7 @@ def discrete_matshow(data):
     ax.grid(color='w', linewidth=6)
     plt.show()
  
-def ReplicaAnalysis(folder="OneCase"):
+def ReplicaAnalysis(folder="replicas"):
     Plumes = np.zeros(20)
     EscCell = np.zeros(20)
     NecCore = np.zeros(20)
@@ -334,3 +335,14 @@ def estimate_distance(x, y, rx, ry, x0=0, y0=0, angle=0, error=1e-5):
 
     px, py = rx * cos(theta), ry * sin(theta)
     return ((x - px) ** 2 + (y - py) ** 2) ** .5
+
+    
+if __name__ == '__main__':
+    # Example of image Boolean classifier (b=0.5, F_r = 50%, and T_p = 50h) 
+    print(ImageOpenCV("snapshots/Output_B05_F050_T050.jpg"))
+
+    # Analysis of 20 replicates for b=0.5, F_r = 50%, and T_p = 50h (Folder \replicas)
+    ReplicaAnalysis()
+
+    # Classifying all simulations from folder \snapshots
+    Classify_all_simulations()
